@@ -22,11 +22,23 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
+    "@nestjs/graphql": "^7.11.0",
+    "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-socket.io": "^7.6.18",
+    "@nestjs/swagger": "^4.8.1",
+    "@nestjs/websockets": "^7.6.18",
+    "apollo-server-express": "^2.25.1",
+    "graphql": "^15.5.0",
+    "graphql-tools": "^7.0.5",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
@@ -35,6 +47,8 @@
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.36",
+    "@types/passport-local": "^1.0.33",
+    "@types/socket.io": "^3.0.2",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
