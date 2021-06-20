@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('Metaphor')
     .setDescription("let's talk")
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
