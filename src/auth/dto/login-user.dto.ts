@@ -4,7 +4,7 @@ export class LoginUserDto {
   @ApiProperty({
     default: 'epvh1o2qnao@temporary-mail.net',
   })
-  username: string;
+  email: string;
   @ApiProperty({
     default: '123',
   })

@@ -20,8 +20,8 @@ export class AuthService {
     const newUser = new this.userModel(createUser);
     return newUser.save();
   }
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userModel.findOne({ email: username });
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.userModel.findOne({ email: email });
 
     if (user && user.password === pass) {
       return user;
@@ -29,7 +29,7 @@ export class AuthService {
     return null;
   }
   async login(user: LoginUserDto) {
-    const currentUser = await this.validateUser(user.username, user.password);
+    const currentUser = await this.validateUser(user.email, user.password);
     if (currentUser) {
       const date = new Date();
       const payload: JwtPayload = {
