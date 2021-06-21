@@ -17,9 +17,6 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
         useNewUrlParser: true,
       },
     ),
-    ConfigModule.forRoot({
-      load: [configuration],
-    }),
     UserModule,
     AuthModule,
   ],
