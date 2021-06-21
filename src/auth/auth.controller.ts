@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Logger, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Post,
+  UseFilters,
+} from '@nestjs/common';
 import { Public } from 'src/decorate/public.decorate';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';

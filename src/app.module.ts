@@ -14,6 +14,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
       'mongodb+srv://metaphor:metaphor@metaphor.lgztn.mongodb.net',
       {
         dbName: 'metaphor',
+        useNewUrlParser: true,
       },
     ),
     ConfigModule.forRoot({
