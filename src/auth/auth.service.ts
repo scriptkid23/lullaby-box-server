@@ -46,4 +46,7 @@ export class AuthService {
       );
     }
   }
+  validateToken(token: string) {
+    //TODO: create function validate here !
+  }
 }
