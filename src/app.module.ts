@@ -8,8 +8,13 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 @Module({
   imports: [
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql'),
+    }),
     MongooseModule.forRoot(
       'mongodb+srv://metaphor:metaphor@metaphor.lgztn.mongodb.net',
       {

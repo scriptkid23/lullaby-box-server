@@ -1,0 +1,28 @@
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  user(email: String!): User!
+  users(): [User!]!
+}
+
+type Mutation {
+  addUser(newUserData: NewUserInput!): User!
+  # removeRecipe(id: String!): Boolean!
+}
+
+input NewUserInput {
+  username: String!
+  password: String!
+}
+
+# type Subscription {
+#   recipeAdded: Recipe!
+# }
