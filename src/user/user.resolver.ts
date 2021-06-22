@@ -1,15 +1,26 @@
-import { Args, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Args, Resolver, Query } from '@nestjs/graphql';
+import { InjectModel } from '@nestjs/mongoose';
 import { PubSub } from 'apollo-server-express';
-import { Query } from 'mongoose';
-import { User } from './user.model';
+import { GqlAuthGuard } from 'src/auth/graphql-auth.guard';
+import { Public } from 'src/decorate/public.decorate';
+import { UserDto } from './dto/user.dto';
+import { UserService } from './user.service';
 
 const pubSub = new PubSub();
 
-@Resolver((of) => User)
+@Resolver()
+@Public()
+@UseGuards(GqlAuthGuard)
 export class UserResolver {
+  constructor(private userService: UserService) {}
+  @Query(() => String)
+  async sayHello() {
+    return 'Welcome!';
+  }
 
-    @Query(returns => User)
-    async user(@Args('email') email:string): Promise<User>{
-        const user = await 
-    }
+  @Query(() => UserDto)
+  async user(@Args('email') email: string): Promise<any> {
+    return this.userService.findOne(email);
+  }
 }

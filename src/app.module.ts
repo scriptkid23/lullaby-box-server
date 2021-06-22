@@ -13,7 +13,9 @@ import { join } from 'path';
 @Module({
   imports: [
     GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql'),
+      context: ({ req }) => ({ headers: req.headers }),
     }),
     MongooseModule.forRoot(
       'mongodb+srv://metaphor:metaphor@metaphor.lgztn.mongodb.net',

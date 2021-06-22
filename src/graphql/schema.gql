@@ -1,28 +1,15 @@
-type User {
-  id: ID!
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserDto {
+  _id: String!
   username: String!
   email: String!
   password: String!
 }
 
-"""Date custom scalar type"""
-scalar Date
-
 type Query {
-  user(email: String!): User!
-  users(): [User!]!
+  sayHello: String!
+  user(email: String!): UserDto!
 }
-
-type Mutation {
-  addUser(newUserData: NewUserInput!): User!
-  # removeRecipe(id: String!): Boolean!
-}
-
-input NewUserInput {
-  username: String!
-  password: String!
-}
-
-# type Subscription {
-#   recipeAdded: Recipe!
-# }
