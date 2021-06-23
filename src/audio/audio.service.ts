@@ -13,4 +13,10 @@ export class AudioService {
     const newAudio = new this.audioModel(audio);
     return newAudio.save();
   }
+  async findAudio(search: string): Promise<any> {
+    const data = await this.audioModel.find({
+      name: { $regex: search, $options: 'i' },
+    });
+    return data;
+  }
 }

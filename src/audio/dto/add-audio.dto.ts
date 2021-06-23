@@ -10,7 +10,8 @@ export class CreateAudioDto {
   })
   artist: string;
   @ApiProperty({
-    default: '123',
+    default:
+      'http://docs.google.com/uc?export=open&id=1UkBcEH3ie6Wsa6CTr65ZsRLwc-1b6MJr',
   })
   url: string;
   @ApiProperty({

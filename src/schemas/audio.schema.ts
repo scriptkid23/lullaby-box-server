@@ -5,9 +5,9 @@ export type AudioDocument = Audio & Document;
 
 @Schema()
 export class Audio {
-  @Prop({ required: true })
-  name: string;
   @Prop({ indexes: true, required: true })
+  name: string;
+  @Prop({ required: true })
   artist: string;
   @Prop({ required: true })
   url: string;
