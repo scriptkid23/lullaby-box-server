@@ -7,6 +7,7 @@ import { AllExceptionsFilter } from './exception/all-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.enableCors();
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Metaphor')
     .setDescription("let's talk")

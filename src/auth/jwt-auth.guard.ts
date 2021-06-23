@@ -1,5 +1,6 @@
 import {
   ExecutionContext,
+  Inject,
   Injectable,
   Logger,
   UnauthorizedException,
@@ -11,7 +12,10 @@ import { IS_PUBLIC_KEY } from 'src/decorate/public.decorate';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   private logger = new Logger(JwtAuthGuard.name);
-  constructor(private reflector: Reflector) {
+  constructor(
+    @Inject('AuthService') private readonly authService,
+    private reflector: Reflector,
+  ) {
     super();
   }
   canActivate(context: ExecutionContext) {
@@ -19,9 +23,15 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) {
       return true;
     }
+    const http = context.switchToHttp();
+    const { headers } = http.getRequest();
+    const authorization = headers.authorization;
+    const token = authorization.split(' ')[1].trim();
+    this.authService.validateToken(token);
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
     return super.canActivate(context);
