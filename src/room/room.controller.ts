@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Public } from 'src/decorate/public.decorate';
 import { AddMessageDto } from './dto/add-message.dto';
 import { CreateRoomDto } from './dto/add-room.dto';
@@ -12,6 +12,10 @@ import { RoomService } from './room.service';
 export class RoomController {
   constructor(private roomService: RoomService) {}
 
+  @Get(':id')
+  async findRoom(@Param('id') id: string): Promise<any> {
+    return this.roomService.getRoom(id);
+  }
   @Post('/create')
   async createRoom(@Body() room: CreateRoomDto): Promise<any> {
     return this.roomService.createRoom(room);

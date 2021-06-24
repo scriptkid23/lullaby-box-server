@@ -14,7 +14,9 @@ export class RoomService {
     // @InjectModel(Audio.name) private audioModel: Model<AudioDocument>
     @InjectModel(Room.name) private roomModel: Model<RoomDocument>,
   ) {}
-
+  async getRoom(room: string): Promise<any> {
+    return await this.roomModel.findOne({ roomId: room });
+  }
   async createRoom(room: CreateRoomDto): Promise<any> {
     const newRoom = new this.roomModel();
     newRoom.roomId = room.roomId;
