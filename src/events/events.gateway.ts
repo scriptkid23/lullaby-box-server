@@ -27,6 +27,5 @@ export class EventsGateway
 
   handleConnection(client, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
-    this.server.sockets.emit({ message: 'connection' });
   }
 }
