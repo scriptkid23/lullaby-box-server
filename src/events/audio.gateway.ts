@@ -26,4 +26,14 @@ export class AudioGateway {
     console.log(data);
     this.server.sockets.emit('RECEIVER_ADD_TRACK', data);
   }
+  @SubscribeMessage('SEND_EVENT_PLAY')
+  listenEventPlay(@MessageBody() data: string) {
+    console.log(data);
+    this.server.sockets.emit('RECEIVER_EVENT_PLAY', data);
+  }
+  @SubscribeMessage('SEND_SET_TRACK_PROGRESS')
+  listenSendSetTrackProgress(@MessageBody() data: string) {
+    console.log(data);
+    this.server.sockets.emit('RECEIVER_SET_TRACK_PROGRESS', data);
+  }
 }
