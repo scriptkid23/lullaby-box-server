@@ -15,7 +15,6 @@ import { LeaveRoomDto } from 'src/room/dto/leave-room.dto';
 import { RoomService } from 'src/room/room.service';
 
 @WebSocketGateway()
-@UseGuards(WsAuthGuard)
 export class ChatGateway {
   @WebSocketServer()
   server: Server;

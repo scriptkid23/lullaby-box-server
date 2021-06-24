@@ -13,7 +13,6 @@ import { AddTrackDto } from 'src/room/dto/add-track.dto';
 import { RoomService } from 'src/room/room.service';
 
 @WebSocketGateway()
-@UseGuards(WsAuthGuard)
 export class AudioGateway {
   @WebSocketServer()
   server: Server;
