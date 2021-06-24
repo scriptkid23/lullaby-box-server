@@ -7,6 +7,7 @@ import { Room, RoomSchema } from 'src/schemas/room.schema';
 @Module({
   providers: [RoomService],
   controllers: [RoomController],
+  exports: [RoomService],
   imports: [
     MongooseModule.forFeature([{ name: Room.name, schema: RoomSchema }]),
   ],
