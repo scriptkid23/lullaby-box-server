@@ -1,5 +1,6 @@
 import { Inject, UseGuards } from '@nestjs/common';
 import {
+  ConnectedSocket,
   MessageBody,
   SubscribeMessage,
   WebSocketGateway,
@@ -23,18 +24,27 @@ export class ChatGateway {
   listenMessages(@MessageBody() data: AddMessageDto) {
     console.log(data);
     this.roomService.addMessage(data);
-    this.server.sockets.to(data.roomId).emit(data);
+    this.server.sockets.to(data.roomId).emit('RECEIVER_MESSAGE', data);
   }
   @SubscribeMessage('JOIN_ROOM')
-  listenJoinRoom(@MessageBody() data: JoinRoomDto) {
+  listenJoinRoom(
+    @MessageBody() data: JoinRoomDto,
+    @ConnectedSocket() client: any,
+  ) {
     console.log(data);
     this.roomService.joinRoom(data);
-    this.server.sockets.to(data.roomId).emit(data);
+    client.join(data.roomId, (error) => {
+      if (!error)
+        this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
+    });
   }
   @SubscribeMessage('LEAVE_ROOM')
-  listenLeaveRoom(@MessageBody() data: LeaveRoomDto) {
+  listenLeaveRoom(
+    @MessageBody() data: LeaveRoomDto,
+    @ConnectedSocket() client: any,
+  ) {
     console.log(data);
-    this.roomService.leaveRoom(data);
-    this.server.sockets.to(data.roomId).emit(data);
+    this.server.sockets.to(data.roomId).emit('RECEIVER_LEAVE_ROOM', data);
+    client.leave(data.roomId);
   }
 }
