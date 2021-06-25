@@ -38,7 +38,6 @@ export class ChatGateway {
           this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
       });
     } else {
-      this.roomService.joinRoom(data);
       client.join(data.roomId, (error) => {
         if (!error)
           this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
