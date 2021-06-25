@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { EventsModule } from './events/events.module';
 import { AudioModule } from './audio/audio.module';
+import { RoomModule } from './room/room.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -20,6 +21,7 @@ import { AudioModule } from './audio/audio.module';
     AuthModule,
     EventsModule,
     AudioModule,
+    RoomModule,
   ],
   controllers: [AppController],
   providers: [
