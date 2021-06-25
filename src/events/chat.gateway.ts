@@ -28,15 +28,22 @@ export class ChatGateway {
   }
   @SubscribeMessage('JOIN_ROOM')
   listenJoinRoom(
-    @MessageBody() data: JoinRoomDto,
+    @MessageBody() data: JoinRoomDto | any,
     @ConnectedSocket() client: any,
   ) {
     console.log(data);
-    this.roomService.joinRoom(data);
-    client.join(data.roomId, (error) => {
-      if (!error)
-        this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
-    });
+    if (data.roomId && data.reconnect) {
+      client.join(data.roomId, (error) => {
+        if (!error)
+          this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
+      });
+    } else {
+      this.roomService.joinRoom(data);
+      client.join(data.roomId, (error) => {
+        if (!error)
+          this.server.sockets.to(data.roomId).emit('RECEIVER_JOIN_ROOM', data);
+      });
+    }
   }
   @SubscribeMessage('LEAVE_ROOM')
   listenLeaveRoom(
@@ -44,6 +51,7 @@ export class ChatGateway {
     @ConnectedSocket() client: any,
   ) {
     console.log(data);
+    this.roomService.leaveRoom(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_LEAVE_ROOM', data);
     client.leave(data.roomId);
   }

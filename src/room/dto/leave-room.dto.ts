@@ -8,5 +8,5 @@ export class LeaveRoomDto {
   @ApiProperty({
     default: '',
   })
-  useId: string;
+  userId: string;
 }

@@ -13,12 +13,4 @@ export class CreateRoomDto {
     default: 'epvh1o2qnao@temporary-mail.net',
   })
   name: string;
-  @ApiProperty({
-    default: {
-      userId: '123',
-      name: '123',
-      avatar: '123',
-    },
-  })
-  participant: User;
 }

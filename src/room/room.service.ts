@@ -18,10 +18,8 @@ export class RoomService {
     return await this.roomModel.findOne({ roomId: room });
   }
   async createRoom(room: CreateRoomDto): Promise<any> {
-    const newRoom = new this.roomModel();
-    newRoom.roomId = room.roomId;
-    newRoom.name = room.name;
-    newRoom.participants.push(room.participant);
+    const newRoom = new this.roomModel(room);
+
     return newRoom.save();
   }
   async leaveRoom(leave: LeaveRoomDto): Promise<any> {
@@ -29,7 +27,7 @@ export class RoomService {
       { roomId: leave.roomId },
       {
         $pull: {
-          participants: { userId: leave.useId },
+          participants: { userId: leave.userId },
         },
       },
       { new: true, useFindAndModify: false },
