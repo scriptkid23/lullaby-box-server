@@ -30,6 +30,8 @@ export class Room {
     url: string;
     image: string;
   }[];
+  @Prop()
+  icon: string;
 }
 
 export const RoomSchema = SchemaFactory.createForClass(Room);
