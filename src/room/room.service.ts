@@ -14,6 +14,11 @@ export class RoomService {
     // @InjectModel(Audio.name) private audioModel: Model<AudioDocument>
     @InjectModel(Room.name) private roomModel: Model<RoomDocument>,
   ) {}
+  async checkRoomExist(room: string): Promise<any> {
+    return await this.roomModel.exists({
+      roomId: room,
+    });
+  }
   async getRoom(room: string): Promise<any> {
     return await this.roomModel.findOne({ roomId: room });
   }

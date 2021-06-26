@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Public } from 'src/decorate/public.decorate';
 import { AddMessageDto } from './dto/add-message.dto';
 import { CreateRoomDto } from './dto/add-room.dto';
@@ -32,8 +32,12 @@ export class RoomController {
   async JoinRoom(@Body() room: JoinRoomDto): Promise<any> {
     return this.roomService.joinRoom(room);
   }
-  @Post('/leave')
+  @Delete('/leave')
   async leaveRoom(@Body() leave: LeaveRoomDto): Promise<any> {
     return this.roomService.leaveRoom(leave);
+  }
+  @Get('/check/:id')
+  async checkRoomExist(@Param('id') id: string): Promise<any> {
+    return this.roomService.checkRoomExist(id);
   }
 }
