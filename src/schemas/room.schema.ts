@@ -1,6 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaType, SchemaTypes, Types } from 'mongoose';
 
+type LastMessage = {
+  id: string;
+  userId: string;
+  name: string;
+  avatar: string;
+  message: string;
+  seenby: any;
+};
 export type RoomDocument = Room & Document;
 
 @Schema()
@@ -32,6 +40,8 @@ export class Room {
   }[];
   @Prop()
   icon: string;
+  @Prop({ type: Object, default: {} })
+  lastMessage: LastMessage;
 }
 
 export const RoomSchema = SchemaFactory.createForClass(Room);

@@ -30,6 +30,11 @@ export class ChatGateway {
   listenIsTyping(@MessageBody() data: any) {
     this.server.sockets.to(data.roomId).emit('RECEIVER_IS_TYPING', data);
   }
+  @SubscribeMessage('SEND_IS_SEEN')
+  listenIsSeen(@MessageBody() data: any) {
+    this.roomService.addSeen(data);
+    this.server.sockets.to(data.roomId).emit('RECEIVER_IS_SEEN', data);
+  }
   @SubscribeMessage('JOIN_ROOM')
   listenJoinRoom(
     @MessageBody() data: JoinRoomDto | any,

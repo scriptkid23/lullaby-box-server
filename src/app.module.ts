@@ -16,7 +16,7 @@ import { RoomModule } from './room/room.module';
     MongooseModule.forRoot(
       'mongodb+srv://metaphor:metaphor@metaphor.lgztn.mongodb.net',
       {
-        dbName: 'metaphor',
+        dbName: 'metaphor-dev',
         useNewUrlParser: true,
       },
     ),
