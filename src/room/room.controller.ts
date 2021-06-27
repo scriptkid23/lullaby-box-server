@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Public } from 'src/decorate/public.decorate';
 import { AddMessageDto } from './dto/add-message.dto';
 import { CreateRoomDto } from './dto/add-room.dto';
+import { AddSeenDto } from './dto/add-seen.dto';
 import { AddTrackDto } from './dto/add-track.dto';
 import { JoinRoomDto } from './dto/join-room.dto';
 import { LeaveRoomDto } from './dto/leave-room.dto';
@@ -11,7 +12,10 @@ import { RoomService } from './room.service';
 @Controller('room')
 export class RoomController {
   constructor(private roomService: RoomService) {}
-
+  @Post('/seen')
+  async addSeen(@Body() addSeen: AddSeenDto): Promise<any> {
+    return this.roomService.addSeen(addSeen);
+  }
   @Get(':id')
   async findRoom(@Param('id') id: string): Promise<any> {
     return this.roomService.getRoom(id);

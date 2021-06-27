@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Room, RoomDocument } from 'src/schemas/room.schema';
 import { AddMessageDto } from './dto/add-message.dto';
 import { CreateRoomDto } from './dto/add-room.dto';
+import { AddSeenDto } from './dto/add-seen.dto';
 import { AddTrackDto } from './dto/add-track.dto';
 import { JoinRoomDto } from './dto/join-room.dto';
 import { LeaveRoomDto } from './dto/leave-room.dto';
@@ -62,7 +63,7 @@ export class RoomService {
     );
   }
   async addMessage(message: AddMessageDto): Promise<any> {
-    return await this.roomModel.findOneAndUpdate(
+    const doc = await this.roomModel.findOneAndUpdate(
       { roomId: message.roomId },
       {
         $push: {
@@ -71,7 +72,24 @@ export class RoomService {
       },
       { new: true, useFindAndModify: false },
     );
+    doc.lastMessage = {
+      ...message.message,
+      seenby: [],
+    };
+    return await doc.save();
   }
+  async addSeen(message: AddSeenDto): Promise<any> {
+    const doc = await this.roomModel.findOne({ roomId: message.roomId });
+    const index = doc.lastMessage.seenby.findIndex((value) => {
+      return value.userId === message.participant.userId;
+    });
+    console.log(index);
 
-  // add message
+    if (index === -1) {
+      console.log(message.participant);
+      doc.lastMessage.seenby.push(message.participant);
+    }
+    doc.markModified('lastMessage');
+    return await doc.save();
+  }
 }
