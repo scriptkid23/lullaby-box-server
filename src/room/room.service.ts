@@ -83,10 +83,8 @@ export class RoomService {
     const index = doc.lastMessage.seenby.findIndex((value) => {
       return value.userId === message.participant.userId;
     });
-    console.log(index);
 
     if (index === -1) {
-      console.log(message.participant);
       doc.lastMessage.seenby.push(message.participant);
     }
     doc.markModified('lastMessage');

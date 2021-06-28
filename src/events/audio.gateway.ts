@@ -20,23 +20,19 @@ export class AudioGateway {
   constructor(private roomService: RoomService) {}
   @SubscribeMessage('SEND_SET_TRACK_INDEX')
   listenSetTrackIndex(@MessageBody() data) {
-    console.log(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_SET_TRACK_INDEX', data);
   }
   @SubscribeMessage('SEND_ADD_TRACK')
   listenAddTrack(@MessageBody() data: AddTrackDto) {
-    console.log(data);
     this.roomService.addtrack(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_ADD_TRACK', data);
   }
   @SubscribeMessage('SEND_EVENT_PLAY')
   listenEventPlay(@MessageBody() data) {
-    console.log(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_EVENT_PLAY', data);
   }
   @SubscribeMessage('SEND_SET_TRACK_PROGRESS')
   listenSendSetTrackProgress(@MessageBody() data) {
-    console.log(data);
     this.server.sockets
       .to(data.roomId)
       .emit('RECEIVER_SET_TRACK_PROGRESS', data);
