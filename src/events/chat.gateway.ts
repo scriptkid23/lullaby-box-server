@@ -22,7 +22,6 @@ export class ChatGateway {
   constructor(private roomService: RoomService) {}
   @SubscribeMessage('SEND_MESSAGE')
   listenMessages(@MessageBody() data: AddMessageDto) {
-    console.log(data);
     this.roomService.addMessage(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_MESSAGE', data);
   }
@@ -40,7 +39,6 @@ export class ChatGateway {
     @MessageBody() data: JoinRoomDto | any,
     @ConnectedSocket() client: any,
   ) {
-    console.log(data);
     if (data.roomId && data.reconnect) {
       client.join(data.roomId, (error) => {
         if (!error)
@@ -58,7 +56,6 @@ export class ChatGateway {
     @MessageBody() data: LeaveRoomDto,
     @ConnectedSocket() client: any,
   ) {
-    console.log(data);
     this.roomService.leaveRoom(data);
     this.server.sockets.to(data.roomId).emit('RECEIVER_LEAVE_ROOM', data);
     client.leave(data.roomId);
