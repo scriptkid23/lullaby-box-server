@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './dto/user.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import {
+  EffectScreen,
+  EffectScreenDocument,
+} from 'src/schemas/effect-screen.schema';
+import { AddEffectScreenDto } from './dto/add-effect-screen.dto';
 
 @Injectable()
 export class UserService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-    {
-      userId: 3,
-      username: 'string',
-      password: 'string',
-    },
-  ];
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  constructor(
+    @InjectModel(EffectScreen.name)
+    private effectScreenModel: Model<EffectScreenDocument>,
+  ) {}
+  async getAllEffectScreen(): Promise<any> {
+    return this.effectScreenModel.find();
+  }
+  async addEffectScreen(effect: AddEffectScreenDto): Promise<any> {
+    const newEffect = new this.effectScreenModel(effect);
+    return newEffect.save();
   }
 }
