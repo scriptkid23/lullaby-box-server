@@ -80,14 +80,19 @@ export class RoomService {
   }
   async addSeen(message: AddSeenDto): Promise<any> {
     const doc = await this.roomModel.findOne({ roomId: message.roomId });
-    const index = doc.lastMessage.seenby.findIndex((value) => {
-      return value.userId === message.participant.userId;
-    });
+    if (doc.lastMessage.message.length > 0) {
+      if (doc.lastMessage.userId !== message.participant.userId) {
+        const index = doc.lastMessage.seenby.findIndex((value) => {
+          return value.userId === message.participant.userId;
+        });
 
-    if (index === -1) {
-      doc.lastMessage.seenby.push(message.participant);
+        if (index === -1) {
+          doc.lastMessage.seenby.push(message.participant);
+        }
+      }
+      doc.markModified('lastMessage');
+      return await doc.save();
     }
-    doc.markModified('lastMessage');
-    return await doc.save();
+    return doc;
   }
 }
