@@ -40,7 +40,17 @@ export class Room {
   }[];
   @Prop()
   icon: string;
-  @Prop({ type: Object, default: {} })
+  @Prop({
+    type: Object,
+    default: {
+      id: '',
+      userId: '',
+      name: '',
+      avatar: '',
+      message: '',
+      seenby: [],
+    },
+  })
   lastMessage: LastMessage;
 }
 
