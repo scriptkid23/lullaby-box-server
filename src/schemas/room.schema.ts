@@ -30,6 +30,8 @@ export class Room {
     name: string;
     avatar: string;
     message: string;
+    replyId: string;
+    replyMessage: string;
   }[];
   @Prop({ default: [] })
   tracks: {
