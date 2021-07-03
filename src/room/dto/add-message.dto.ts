@@ -5,6 +5,8 @@ type Message = {
   name: string;
   avatar: string;
   message: string;
+  replyId: string;
+  replyMessage: string;
 };
 export class AddMessageDto {
   @ApiProperty({
@@ -18,6 +20,8 @@ export class AddMessageDto {
       name: 'string',
       avatar: 'string',
       message: 'string',
+      replyId: '',
+      replyMessage: '',
     },
   })
   message: Message;
