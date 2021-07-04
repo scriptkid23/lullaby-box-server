@@ -30,6 +30,7 @@ export class Room {
     name: string;
     avatar: string;
     message: string;
+    type: string;
     replyId: string;
     replyMessage: string;
   }[];
