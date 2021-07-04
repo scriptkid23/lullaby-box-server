@@ -5,6 +5,7 @@ type Message = {
   name: string;
   avatar: string;
   message: string;
+  type: string;
   replyId: string;
   replyMessage: string;
 };
@@ -20,6 +21,7 @@ export class AddMessageDto {
       name: 'string',
       avatar: 'string',
       message: 'string',
+      type: 'text',
       replyId: '',
       replyMessage: '',
     },
