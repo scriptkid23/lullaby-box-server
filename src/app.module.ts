@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { EventsModule } from './events/events.module';
 import { AudioModule } from './audio/audio.module';
 import { RoomModule } from './room/room.module';
+import { MinigameModule } from './minigame/minigame.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -22,6 +23,7 @@ import { RoomModule } from './room/room.module';
     EventsModule,
     AudioModule,
     RoomModule,
+    MinigameModule,
   ],
   controllers: [AppController],
   providers: [
