@@ -61,11 +61,9 @@ export class MinigameService implements OnModuleInit {
       throw new HttpException('Dupplicate', HttpStatus.BAD_REQUEST);
     }
   }
-  async getMiniGameHistory(limit: number): Promise<any> {
-    return await this.miniGameHistoryModel
-      .find()
-      .sort({ $natural: -1 })
-      .limit(limit);
+  async getMiniGameHistory(): Promise<any> {
+    return await this.miniGameHistoryModel.find({});
+   
   }
   async openCell(input: any): Promise<any> {
     try {
@@ -75,13 +73,40 @@ export class MinigameService implements OnModuleInit {
 
       let key = ethers.BigNumber.from(input.event[0].args[1]).toNumber();
       let cell = ethers.BigNumber.from(input.event[0].args[2]).toNumber();
+      let message = '';
       _record.was_open[key] = cell;
       if (input.cell !== 0 || input.cell !== 5) {
         let balance = await this.getBalance();
         _record.total_supply = balance;
       }
+      await this.miniGameCommonModel.updateOne(
+        { event_id: input.eventId },
+        { $set: { was_open: _record.was_open } },
+      );
+      if (cell === 0) {
+        message = 'You lost.';
+        this.updateMiniGameHistory({
+          address: input.event[0].args[0],
+          message: 'You lost.',
+        });
+      }
+      if (cell === 5) {
+        message = 'This is very important';
+        this.updateMiniGameHistory({
+          address: input.event[0].args[0],
+          message: 'This is very important',
+        });
+      }
+      message = `you have received ${cell}% of the total supply`;
+      this.updateMiniGameHistory({
+        address: input.event[0].args[0],
+        message: `you have received ${cell}% of the total supply`,
+      });
       _record.save();
-      return _record;
+      return {
+        openCell: _record,
+        history: { address: input.event[0].args[0], message: message },
+      };
     } catch (error) {
       throw new HttpException('Error', HttpStatus.BAD_REQUEST);
     }

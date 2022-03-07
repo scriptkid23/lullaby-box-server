@@ -29,8 +29,8 @@ export class MiniGameGateway {
   async listenMessages(@MessageBody() data: any) {
     let response = await this.miniGameService.openCell(data);
     if (response) {
-      this.server.sockets.emit('RECEIVER_OPEN_CELL', response);
-      this.server.sockets.emit('RECEIVER_HISTORY', response);
+      this.server.sockets.emit('RECEIVER_OPEN_CELL', response.openCell);
+      this.server.sockets.emit('RECEIVER_HISTORY', response.history);
     }
   }
   @SubscribeMessage('SEND_TOTAL_SUPPLY')

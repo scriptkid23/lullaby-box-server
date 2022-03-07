@@ -14,8 +14,8 @@ export class MinigameController {
   async createEvent(@Body() input: CreateEventDto): Promise<any> {
     return this.miniGameService.createEvent(input.eventId);
   }
-  @Get('/history/:limit')
-  async getMiniGameHistory(@Param('limit') limit: number): Promise<any> {
-    return this.miniGameService.getMiniGameHistory(limit);
+  @Get()
+  async getMiniGameHistory(): Promise<any> {
+    return this.miniGameService.getMiniGameHistory();
   }
 }
