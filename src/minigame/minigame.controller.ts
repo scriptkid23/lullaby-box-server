@@ -1,15 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { CreateEventDto } from './dto/create-event.dto';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Public } from 'src/decorate/public.decorate';
 import { MinigameService } from './minigame.service';
-
+@Public()
 @Controller('minigame')
 export class MinigameController {
-  constructor(private miniGameService: MinigameService) {}
-  @Get('/common')
-  async getMiniGameCommon(): Promise<any> {
-    return this.miniGameService.getMiniGameCommon();
+  constructor(private readonly miniGameService: MinigameService) {}
+  @Get('/:id')
+  async getMiniGameCommon(@Param('id') eventId: string): Promise<any> {
+    return this.miniGameService.getMiniGameCommon(eventId);
   }
-  @Get('/history')
-  async getMiniGameHistory(): Promise<any> {
-    return this.miniGameService.getMiniGameHistory();
+  @Post('/create')
+  async createEvent(@Body() input: CreateEventDto): Promise<any> {
+    return this.miniGameService.createEvent(input.eventId);
+  }
+  @Get('/history/:limit')
+  async getMiniGameHistory(@Param('limit') limit: number): Promise<any> {
+    return this.miniGameService.getMiniGameHistory(limit);
   }
 }

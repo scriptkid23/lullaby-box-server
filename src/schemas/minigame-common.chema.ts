@@ -6,9 +6,11 @@ export type MiniGameCommonDocument = MiniGameCommon & Document;
 
 @Schema()
 export class MiniGameCommon {
-  @Prop({ default: '0' })
+  @Prop({ required: true, unique: true})
+  event_id: string;
+  @Prop()
   total_supply: string;
-  @Prop({ default: wasOpen })
+  @Prop()
   was_open: number[];
 }
 
