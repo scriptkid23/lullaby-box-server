@@ -62,8 +62,7 @@ export class MinigameService implements OnModuleInit {
     }
   }
   async getMiniGameHistory(): Promise<any> {
-    return await this.miniGameHistoryModel.find({});
-   
+    return await this.miniGameHistoryModel.find().sort({createdAt: -1})
   }
   async openCell(input: any): Promise<any> {
     try {
@@ -83,25 +82,30 @@ export class MinigameService implements OnModuleInit {
         { event_id: input.eventId },
         { $set: { was_open: _record.was_open } },
       );
-      if (cell === 0) {
-        message = 'You lost.';
-        this.updateMiniGameHistory({
-          address: input.event[0].args[0],
-          message: 'You lost.',
-        });
+      switch (cell) {
+        case 0:
+          message = 'You lose all turns.';
+          this.updateMiniGameHistory({
+            address: input.event[0].args[0],
+            message: 'You lose all turns.',
+          });
+          break;
+        case 5:
+          message = 'You only lose 1 turn.';
+          this.updateMiniGameHistory({
+            address: input.event[0].args[0],
+            message: 'You only lose 1 turn.',
+          });
+          break;
+        default:
+          message = `You have received ${cell}% of the total supply`;
+          this.updateMiniGameHistory({
+            address: input.event[0].args[0],
+            message: `You have received ${cell}% of the total supply`,
+          });
+          break;
       }
-      if (cell === 5) {
-        message = 'This is very important';
-        this.updateMiniGameHistory({
-          address: input.event[0].args[0],
-          message: 'This is very important',
-        });
-      }
-      message = `you have received ${cell}% of the total supply`;
-      this.updateMiniGameHistory({
-        address: input.event[0].args[0],
-        message: `you have received ${cell}% of the total supply`,
-      });
+
       _record.save();
       return {
         openCell: _record,

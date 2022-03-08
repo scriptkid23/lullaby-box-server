@@ -4,7 +4,7 @@ import { wasOpen } from './default';
 
 export type MiniGameHistoryDocument = MiniGameHistory & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class MiniGameHistory {
   @Prop({required: true})
   address: string;
