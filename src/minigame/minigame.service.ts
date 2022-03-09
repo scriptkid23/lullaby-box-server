@@ -21,7 +21,7 @@ import {
 } from 'src/schemas/minigame-history.schema';
 import { Minesweeper } from './contracts/Minesweeper';
 
-const MINESWEEPER_CONTRACT = '0xF4b0c9349E7456C83fa0bC3B9d112a136246aD50';
+const MINESWEEPER_CONTRACT = '0xCC9550849695a76fEBdAbD44CC8A32c884196627';
 const BSC_RPC_URL = 'https://data-seed-prebsc-1-s1.binance.org:8545';
 @Injectable()
 export class MinigameService implements OnModuleInit {
