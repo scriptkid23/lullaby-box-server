@@ -13,7 +13,7 @@ import { MinigameModule } from './minigame/minigame.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://metaphor:metaphor@metaphor.lgztn.mongodb.net',
+      'mongodb+srv://spirity:BOpRIYLNUAcah44k@cluster0.rjlkaur.mongodb.net',
       {
         dbName: 'metaphor',
       },
